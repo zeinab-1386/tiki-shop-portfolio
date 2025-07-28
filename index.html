@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tiki Shop</title>
+  <link rel="stylesheet" href="./style/index.css">
+  <!-- Swiper CSS -->
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header>
+    <img src="./images/logo.png" alt="Logo" class="logo">
+    
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav id="nav">
+      <a href="#home">Home</a>
+      <a href="#Category">Category</a>
+      <a href="#About">َAbout</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <h1>Lorem ipsum</h1>
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,</p>
+      <button class="btn">get start</button>
+    </div>
+    <img src="./images/fo.png" alt="Person" class="hero-image" />
+  </section>
+
+  <div class="category-slider" id="Category">
+    <div class="slider-track">
+      <div class="card">
+        <img src="./images/cat1.jpg" alt="category1">
+        <div class="info">
+          <span>category1</span>
+          <button>shop</button>
+        </div>
+      </div>
+      <div class="card">
+        <img src="./images/cat2.jpg" alt="category2">
+        <div class="info">
+          <span>category2</span>
+          <button>shop</button>
+        </div>
+      </div>
+      <div class="card">
+        <img src="./images/cat3.jpg" alt="category3">
+        <div class="info">
+          <span>category3</span>
+          <button>shop</button>
+        </div>
+      </div>
+      <div class="card">
+        <img src="./images/cat4.jpg" alt="category4">
+        <div class="info">
+          <span>category4</span>
+          <button>shop</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <section class="about-section" id="About">
+    <div class="about-left">
+      <div class="svg-shape"></div>
+  
+      <div class="img-wrapper">
+        <img src="./images/1.jpg" alt="Main" class="main-img" />
+        <img src="./images/2.jpg" alt="Secondary" class="second-img" />
+      </div>
+    </div>
+  
+    <div class="about-right">
+      <h2>Lorem ipsum</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, Lorem ipsum dolor sit amet, consectetuer adipiscing elit, Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+      </p>
+    </div>
+  </section>
+  
+  <section class="contact-section" id="contact">
+    <div class="contact-container">
+      <div class="contact-content">
+        <div class="contact-text">
+          <h2>Contact Us</h2>
+          <p>We'd love to hear from you! Fill in the form and we'll get back to you as soon as possible.</p>
+        </div>
+        <form class="contact-form">
+          <div class="form-group">
+            <input type="text" placeholder="Your Name" required />
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="Your Email" required />
+          </div>
+          <div class="form-group">
+            <textarea rows="5" placeholder="Your Message" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  
+
+  <script>
+    //menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
+
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+    });
+
+    //slider
+    const slider = document.querySelector('.slider-track');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+  
+    slider.addEventListener('touchstart', (e) => {
+      isDown = true;
+      startX = e.touches[0].pageX;
+      scrollLeft = slider.scrollLeft;
+    });
+  
+    slider.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX;
+      const walk = startX - x;
+      slider.scrollLeft = scrollLeft + walk;
+    });
+  
+    slider.addEventListener('touchend', () => {
+      isDown = false;
+    });
+  
+    slider.addEventListener('mousedown', (e) => {
+      isDown = true;
+      slider.classList.add('dragging');
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    });
+  
+    slider.addEventListener('mouseleave', () => {
+      isDown = false;
+      slider.classList.remove('dragging');
+    });
+  
+    slider.addEventListener('mouseup', () => {
+      isDown = false;
+      slider.classList.remove('dragging');
+    });
+  
+    slider.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      slider.scrollLeft = scrollLeft - walk;
+    });
+  </script>
+  
+  
+</body>
+</html>
