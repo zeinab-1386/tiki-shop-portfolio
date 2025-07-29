@@ -23,6 +23,8 @@
     overflow-x: hidden;
   }
 
+  /* header */
+
   header {
     position: fixed;
     top: 0;
@@ -71,6 +73,8 @@
     border-radius: 2px;
     transition: 0.3s;
   }
+
+  /* first page */
 
   .hero {
     display: flex;
@@ -162,6 +166,8 @@ object-fit: contain;
     }
   }
 
+  /* About page */
+
   .about-section {
     display: flex;
     flex-wrap: wrap;
@@ -380,6 +386,7 @@ object-fit: contain;
     }
   }
   
+  /* category page */
 
   .category-slider {
     width: 100%;
@@ -462,6 +469,8 @@ object-fit: contain;
       overflow: visible;
     }
   }
+
+  /* contact page */
 
   .contact-section {
     background-color: var(--bg-color);
@@ -567,5 +576,33 @@ object-fit: contain;
     .submit-btn {
       font-size: 1rem;
     }
+  }
+
+  /* footer */
+
+  .footer {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 14px;
+    border-top: 1px solid var(--accent-color);
+  }
+  
+  .social-links {
+    margin-top: 10px;
+  }
+  
+  .social-links a {
+    color: var(--accent-color);
+    margin: 0 12px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .social-links a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
   }
   
