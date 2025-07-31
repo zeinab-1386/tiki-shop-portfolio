@@ -1,0 +1,170 @@
+<!-- just test -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Page</title>
+  <style>
+    :root {
+      --primary-color: #264d26;
+      --bg-color: #c8e0b5;
+      --light-bg: #e8f1d7;
+      --accent-color: #6faa3b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--primary-color);
+      padding: 2rem;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .filters input[type="search"],
+    .filters select {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--primary-color);
+      border-radius: 5px;
+      background-color: var(--light-bg);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background-color: var(--light-bg);
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .product-card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .product-card h3 {
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+    }
+
+    .product-card p {
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+
+    .product-card button {
+      margin-top: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      border: none;
+      border-radius: 5px;
+      background-color: var(--accent-color);
+      color: white;
+      cursor: pointer;
+    }
+
+    @media(max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Our Products</h1>
+    <div class="filters">
+      <input type="search" placeholder="Search products..." id="searchInput" />
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="hoodie">Hoodie</option>
+        <option value="sweatshirt">Sweatshirt</option>
+        <option value="tshirt">T-shirt</option>
+        <option value="baggy">Baggy Pants</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="products" id="productGrid">
+    <!-- Sample Products -->
+    <div class="product-card" data-category="hoodie">
+      <img src="/images/cat1.jpg" alt="Hoodie">
+      <h3>Basic Green Hoodie</h3>
+      <p>$39.99</p>
+      <button>View</button>
+    </div>
+    <div class="product-card" data-category="sweatshirt">
+      <img src="/images/cat2.jpg" alt="Sweatshirt">
+      <h3>Comfy Sweatshirt</h3>
+      <p>$29.99</p>
+      <button>View</button>
+    </div>
+    <div class="product-card" data-category="tshirt">
+      <img src="/images/cat3.jpg" alt="T-shirt">
+      <h3>Casual T-shirt</h3>
+      <p>$19.99</p>
+      <button>View</button>
+    </div>
+    <div class="product-card" data-category="baggy">
+      <img src="./images/cat4.jpg" alt="Baggy Pants">
+      <h3>Loose Fit Baggy Pants</h3>
+      <p>$44.99</p>
+      <button>View</button>
+    </div>
+  </main>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const productCards = document.querySelectorAll('.product-card');
+
+    function filterProducts() {
+      const search = searchInput.value.toLowerCase();
+      const category = categoryFilter.value;
+
+      productCards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const productCategory = card.dataset.category;
+
+        const matchesSearch = title.includes(search);
+        const matchesCategory = category === 'all' || productCategory === category;
+
+        card.style.display = matchesSearch && matchesCategory ? 'block' : 'none';
+      });
+    }
+
+    searchInput.addEventListener('input', filterProducts);
+    categoryFilter.addEventListener('change', filterProducts);
+  </script>
+</body>
+</html>
