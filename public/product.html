@@ -1,170 +1,237 @@
-<!-- just test for fix -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Page</title>
-  <style>
-    :root {
-      --primary-color: #264d26;
-      --bg-color: #c8e0b5;
-      --light-bg: #e8f1d7;
-      --accent-color: #6faa3b;
-    }
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products Page</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+  <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: sans-serif;
     }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--primary-color);
-      padding: 2rem;
+      font-family: 'Inter', sans-serif;
+      background-color: #c8e0b5;
+      color: #1f1f1f;
     }
 
     header {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
+      padding: 1rem 2rem;
     }
 
-    header h1 {
+    .logo {
       font-size: 2rem;
+      font-weight: 700;
     }
 
-    .filters {
+    .search-bar {
+      flex: 1;
+      margin: 0 1rem;
+      position: relative;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 0.5rem 2.5rem 0.5rem 1rem;
+      border-radius: 10px;
+      border: none;
+      background: #fff;
+    }
+
+    .cart {
+      background-color: #c8e0b5;
+      padding: 0.5rem;
+      border-radius: 50%;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+    }
+
+    .container {
       display: flex;
-      flex-wrap: wrap;
       gap: 1rem;
-      justify-content: center;
+      padding: 1rem 2rem;
     }
 
-    .filters input[type="search"],
-    .filters select {
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--primary-color);
-      border-radius: 5px;
-      background-color: var(--light-bg);
+    .sidebar {
+      background-color: #e8f1d7;
+      padding: 1rem;
+      border-radius: 1rem;
+      min-width: 220px;
+      display: block;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 1rem;
+    }
+
+    .filters label {
+      display: block;
+      margin: 0.3rem 0;
     }
 
     .products {
+      flex: 1;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
     }
 
     .product-card {
-      background-color: var(--light-bg);
+      background-color: #fff;
       padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 1rem;
       text-align: center;
     }
 
     .product-card img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
+      width: 100%;
+      border-radius: 0.5rem;
     }
 
-    .product-card h3 {
-      margin: 0.5rem 0;
-      font-size: 1.1rem;
+    .tag {
+      background-color: #c8e0b5;
+      color: #1f1f1f;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.3rem;
+      display: inline-block;
+      margin-bottom: 0.3rem;
     }
 
-    .product-card p {
-      font-weight: bold;
-      color: var(--accent-color);
-    }
-
-    .product-card button {
-      margin-top: 0.5rem;
-      padding: 0.4rem 0.8rem;
-      border: none;
-      border-radius: 5px;
-      background-color: var(--accent-color);
+    .filter-toggle {
+      display: none;
+      background: #264d26;
       color: white;
-      cursor: pointer;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
     }
 
-    @media(max-width: 600px) {
-      header h1 {
-        font-size: 1.5rem;
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 10;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 70%;
+        height: 100%;
+        background: #e8f1d7;
+        z-index: 20;
+        padding: 2rem;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .filter-toggle {
+        display: block;
+      }
+
+      .sidebar.active,
+      .overlay.active {
+        display: block;
       }
     }
   </style>
 </head>
+
 <body>
   <header>
-    <h1>Our Products</h1>
-    <div class="filters">
-      <input type="search" placeholder="Search products..." id="searchInput" />
-      <select id="categoryFilter">
-        <option value="all">All Categories</option>
-        <option value="hoodie">Hoodie</option>
-        <option value="sweatshirt">Sweatshirt</option>
-        <option value="tshirt">T-shirt</option>
-        <option value="baggy">Baggy Pants</option>
-      </select>
+    <div class="logo">Products</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search products...">
     </div>
+    <a class="cart" href="#cart">🛒</a>
   </header>
 
-  <main class="products" id="productGrid">
-    <!-- Sample Products -->
-    <div class="product-card" data-category="hoodie">
-      <img src="/images/cat1.jpg" alt="Hoodie">
-      <h3>Basic Green Hoodie</h3>
-      <p>$39.99</p>
-      <button>View</button>
-    </div>
-    <div class="product-card" data-category="sweatshirt">
-      <img src="/images/cat2.jpg" alt="Sweatshirt">
-      <h3>Comfy Sweatshirt</h3>
-      <p>$29.99</p>
-      <button>View</button>
-    </div>
-    <div class="product-card" data-category="tshirt">
-      <img src="/images/cat3.jpg" alt="T-shirt">
-      <h3>Casual T-shirt</h3>
-      <p>$19.99</p>
-      <button>View</button>
-    </div>
-    <div class="product-card" data-category="baggy">
-      <img src="./images/cat4.jpg" alt="Baggy Pants">
-      <h3>Loose Fit Baggy Pants</h3>
-      <p>$44.99</p>
-      <button>View</button>
-    </div>
-  </main>
+  <div class="container">
+    <button class="filter-toggle" onclick="toggleSidebar()">Filters</button>
+
+    <aside class="sidebar" id="sidebar">
+      <h2>Filters</h2>
+      <div class="filters">
+        <strong>Gender</strong>
+        <label><input type="checkbox"> Men</label>
+        <label><input type="checkbox"> Women</label>
+
+        <strong>Size</strong>
+        <label><input type="checkbox"> S</label>
+        <label><input type="checkbox"> M</label>
+        <label><input type="checkbox"> L</label>
+        <label><input type="checkbox"> XL</label>
+
+        <strong>Color</strong>
+        <label><input type="radio" name="color"> Beige</label>
+        <label><input type="radio" name="color"> Black</label>
+        <label><input type="radio" name="color"> Brown</label>
+        <label><input type="radio" name="color"> Blue</label>
+
+        <strong>Season</strong>
+        <label><input type="checkbox"> Summer</label>
+        <label><input type="checkbox"> Winter</label>
+
+        <strong>Material</strong>
+        <label><input type="checkbox"> Cotton</label>
+        <label><input type="checkbox"> Linen</label>
+      </div>
+    </aside>
+
+    <main class="products">
+      <div class="product-card">
+        <span class="tag">NEW</span>
+        <img src="/images/cat1.jpg" alt="Product">
+        <h3>Green T-Shirt</h3>
+        <p>$20</p>
+      </div>
+      <div class="product-card">
+        <span class="tag">BEST</span>
+        <img src="/images/cat2.jpg" alt="Product">
+        <h3>Striped T-Shirt</h3>
+        <p>$22</p>
+      </div>
+      <div class="product-card">
+        <span class="tag">GIFT</span>
+        <img src="/images/cat3.jpg" alt="Product">
+        <h3>Brown Blouse</h3>
+        <p>$40</p>
+      </div>
+      <div class="product-card">
+        <span class="tag">BESTSELLER</span>
+        <img src="/images/cat4.jpg" alt="Product">
+        <h3>Relaxed Jeans</h3>
+        <p>$32</p>
+      </div>
+    </main>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
   <script>
-    const searchInput = document.getElementById('searchInput');
-    const categoryFilter = document.getElementById('categoryFilter');
-    const productCards = document.querySelectorAll('.product-card');
-
-    function filterProducts() {
-      const search = searchInput.value.toLowerCase();
-      const category = categoryFilter.value;
-
-      productCards.forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        const productCategory = card.dataset.category;
-
-        const matchesSearch = title.includes(search);
-        const matchesCategory = category === 'all' || productCategory === category;
-
-        card.style.display = matchesSearch && matchesCategory ? 'block' : 'none';
-      });
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
     }
-
-    searchInput.addEventListener('input', filterProducts);
-    categoryFilter.addEventListener('change', filterProducts);
   </script>
 </body>
+
 </html>
