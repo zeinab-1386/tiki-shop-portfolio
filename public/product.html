@@ -1,171 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Products Page</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #c8e0b5;
-      color: #1f1f1f;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-    }
-
-    .logo {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    .search-bar {
-      flex: 1;
-      margin: 0 1rem;
-      position: relative;
-    }
-
-    .search-bar input {
-      width: 100%;
-      padding: 0.5rem 2.5rem 0.5rem 1rem;
-      border-radius: 10px;
-      border: none;
-      background: #fff;
-    }
-
-    .cart {
-      background-color: #c8e0b5;
-      padding: 0.5rem;
-      border-radius: 50%;
-      text-decoration: none;
-      color: black;
-      font-weight: bold;
-    }
-
-    .container {
-      display: flex;
-      gap: 1rem;
-      padding: 1rem 2rem;
-    }
-
-    .sidebar {
-      background-color: #e8f1d7;
-      padding: 1rem;
-      border-radius: 1rem;
-      min-width: 220px;
-      display: block;
-    }
-
-    .sidebar h2 {
-      margin-bottom: 1rem;
-    }
-
-    .filters label {
-      display: block;
-      margin: 0.3rem 0;
-    }
-
-    .products {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-    }
-
-    .product-card {
-      background-color: #fff;
-      padding: 1rem;
-      border-radius: 1rem;
-      text-align: center;
-    }
-
-    .product-card img {
-      width: 100%;
-      border-radius: 0.5rem;
-    }
-
-    .tag {
-      background-color: #c8e0b5;
-      color: #1f1f1f;
-      font-size: 0.7rem;
-      padding: 0.2rem 0.4rem;
-      border-radius: 0.3rem;
-      display: inline-block;
-      margin-bottom: 0.3rem;
-    }
-
-    .filter-toggle {
-      display: none;
-      background: #264d26;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 10;
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 70%;
-        height: 100%;
-        background: #e8f1d7;
-        z-index: 20;
-        padding: 2rem;
-        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-      }
-
-      .filter-toggle {
-        display: block;
-      }
-
-      .sidebar.active,
-      .overlay.active {
-        display: block;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"/>
+  <link rel="stylesheet" href="/style/product.css">
 </head>
-
 <body>
   <header>
     <div class="logo">Products</div>
     <div class="search-bar">
       <input type="text" placeholder="Search products...">
     </div>
-    <a class="cart" href="#cart">🛒</a>
+    <a href="#cart" class="cart">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+           viewBox="0 0 512 512" fill="#264d26">
+        <path d="M351.9,329.5063H206.81l-3.0723-12.56H368.1614l26.63-116.019L177.5618,174.8861l-9.9526-58.0885h-50.4v21.945h31.8934l35.2332,191.2465a32.927,32.927,0,1,0,36.3628,21.4622H320.9431A32.8248,32.8248,0,1,0,351.9,329.5063ZM181.4272,197.4486l186.5106,22.3589-17.2592,75.194H198.9174Z"/>
+      </svg>
+    </a>    
   </header>
 
   <div class="container">
-    <button class="filter-toggle" onclick="toggleSidebar()">Filters</button>
-
-    <aside class="sidebar" id="sidebar">
+    <!-- Sidebar visible only on desktop -->
+    <aside class="sidebar">
       <h2>Filters</h2>
       <div class="filters">
         <strong>Gender</strong>
@@ -222,16 +80,45 @@
     </main>
   </div>
 
-  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+  <!-- Mobile filter icon -->
+  <button class="filter-icon-mobile" onclick="toggleMobileFilters()">🔍</button>
+
+  <!-- Mobile filter panel -->
+  <div class="mobile-filter-panel" id="mobileFilters">
+    <button class="close-filter" onclick="toggleMobileFilters()">✖</button>
+    <h2>Filters</h2>
+    <div class="filters">
+      <strong>Gender</strong>
+      <label><input type="checkbox"> Men</label>
+      <label><input type="checkbox"> Women</label>
+
+      <strong>Size</strong>
+      <label><input type="checkbox"> S</label>
+      <label><input type="checkbox"> M</label>
+      <label><input type="checkbox"> L</label>
+      <label><input type="checkbox"> XL</label>
+
+      <strong>Color</strong>
+      <label><input type="radio" name="color"> Beige</label>
+      <label><input type="radio" name="color"> Black</label>
+      <label><input type="radio" name="color"> Brown</label>
+      <label><input type="radio" name="color"> Blue</label>
+
+      <strong>Season</strong>
+      <label><input type="checkbox"> Summer</label>
+      <label><input type="checkbox"> Winter</label>
+
+      <strong>Material</strong>
+      <label><input type="checkbox"> Cotton</label>
+      <label><input type="checkbox"> Linen</label>
+    </div>
+  </div>
 
   <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('overlay');
-      sidebar.classList.toggle('active');
-      overlay.classList.toggle('active');
+    function toggleMobileFilters() {
+      const panel = document.getElementById('mobileFilters');
+      panel.classList.toggle('active');
     }
   </script>
 </body>
-
 </html>
