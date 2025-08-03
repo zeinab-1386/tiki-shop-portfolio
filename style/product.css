@@ -71,6 +71,8 @@ header {
   position: sticky;
   top: 80px;
   height: fit-content;
+  scrollbar-width: none; /* برای فایرفاکس */
+  -ms-overflow-style: none; /* برای IE و Edge */
 }
 
 .sidebar h2 {
@@ -165,6 +167,83 @@ header {
   right: 1.5rem;
   cursor: pointer;
 }
+
+.sidebar label {
+  display: block;
+  padding: 6px 10px;
+  margin: 4px 0;
+  border-radius: 8px;
+  background-color: var(--light-bg);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.sidebar input[type="checkbox"]:checked + label,
+.sidebar input[type="radio"]:checked + label {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+}
+
+.sidebar input[type="checkbox"],
+.sidebar input[type="radio"] {
+  display: none;
+}
+
+/* حذف محدودیت .sidebar از اینجا */
+input[type="checkbox"]:checked + label, 
+input[type="radio"]:checked + label {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  display: none;
+}
+
+/* در صورت نیاز، برای بهتر بودن لایه‌بندی در موبایل */
+.mobile-filter-panel label {
+  display: block;
+  padding: 6px 10px;
+  margin: 4px 0;
+  border-radius: 8px;
+  background-color: var(--light-bg);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* وقتی انتخاب شده */
+.mobile-filter-panel input[type="checkbox"]:checked + label,
+.mobile-filter-panel input[type="radio"]:checked + label {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  display: none;
+}
+
+label {
+  display: block;
+  padding: 6px 10px;
+  margin: 4px 0;
+  border-radius: 8px;
+  background-color: var(--light-bg);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+label input:checked + span {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+}
+
+
+
 
 @media (max-width: 768px) {
   .sidebar {
